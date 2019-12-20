@@ -57,6 +57,7 @@ formValue:Formvalues
           this.formValue.Weight = form.value.weight;
           this.formValue.W_C =form.value.W_C;
           this.formValue.WC1 = true;
+          this.formValue.operation = form.value.operation;
           this.formValue.BEMCO = (form.value.bemco === '' ? false : form.value.bemco);
           this.formValue.HYD =  (form.value.hyd === '' ? false : form.value.hyd)
           this.formValue.HAB =  (form.value.hab === '' ? false : form.value.hab)
@@ -93,7 +94,8 @@ formValue:Formvalues
           BEMCO:true,
           HAB:true,
           Qc:true ,
-          imagehref:'' 
+          imagehref:'' ,
+          operation:''
         }
       }
   download(){

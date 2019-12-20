@@ -14,6 +14,7 @@ export class Formvalues{
     HYD:boolean;
     HAB:boolean;
     imagehref:any;
+    operation:any;
 
 
 

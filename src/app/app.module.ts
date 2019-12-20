@@ -31,7 +31,7 @@ import { LoginComponent } from './login/login/login.component';
 
 
 const routes: Routes =[
-  {path:'', component:QRGenComponent},
+  {path:'', component:LoginComponent},
   {path:'home',component:QRGenComponent}
 ]
 

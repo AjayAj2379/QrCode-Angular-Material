@@ -8,7 +8,7 @@
         </mat-card>
         
       </div>
-    <form>
+    <form (ngSubmit)="onSubmit(form)" #form="ngForm" >
   <div class="header">
     <mat-card class="mat-header">
      <div class="row example-container">

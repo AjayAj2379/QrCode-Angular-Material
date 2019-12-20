@@ -27,13 +27,13 @@
 
       <mat-form-field appearance='outline' color='accent'  >
         <mat-label><b>Rc Number</b></mat-label>
-        <input  matInput name="rcNumber" ngModel  placeholder="Rc Number" required>  
+        <input  matInput name="rcNumber" ngModel  placeholder="Rc Number (Unique Number)" required>  
       </mat-form-field>
      
 
       <mat-form-field appearance='outline' color='accent'  >
         <mat-label><b>Member Number</b></mat-label>
-        <input  matInput name="memberNo" ngModel  placeholder="Member Number(Unique Number)" required>  
+        <input  matInput name="memberNo" ngModel  placeholder="Member Number" required>  
       </mat-form-field>
 
       <mat-form-field appearance='outline' color='accent'  >
@@ -51,23 +51,32 @@
           <mat-label><b>Section</b></mat-label>
           <input  matInput name="section" ngModel placeholder="Section" required>
         </mat-form-field>
-      
-        <mat-form-field appearance='outline' color='accent' >
-          <mat-label><b>Length</b></mat-label>
-          <input  matInput name="length" ngModel   placeholder="Length" required>
-        </mat-form-field>
-  
-        <mat-form-field appearance='outline' color='accent' >
-          <mat-label><b>Quantity</b></mat-label>
-          <input  matInput name="quantity" ngModel  placeholder="Quantity" required>
-        </mat-form-field>
+     
+       
 
         <mat-form-field appearance='outline' color='accent'  >
           <mat-label><b>Weight</b></mat-label>
           <input  matInput name="weight" ngModel   placeholder="Weight" required>     
         </mat-form-field>
        
+        
+        <mat-form-field appearance='outline' color='accent'  >
+          <mat-label><b>Operation</b></mat-label>
+          <input  matInput name="operation" ngModel   placeholder="Operation" required>     
+        </mat-form-field>
        
+      </div>
+      <div class='sub-example-container'>
+
+        <mat-form-field appearance='outline' color='accent' style="width: 34%;">
+          <mat-label><b>Length</b></mat-label>
+          <input  matInput name="length" ngModel   placeholder="Length" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance='outline' color='accent' style="margin-left: 6%; width: 34%;" >
+          <mat-label><b>Quantity</b></mat-label>
+          <input  matInput name="quantity" ngModel  placeholder="Quantity" required>
+        </mat-form-field>
       </div>
     </div>
  
