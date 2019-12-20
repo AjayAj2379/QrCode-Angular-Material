@@ -27,6 +27,7 @@ import { QrCodeComponent } from './Qrcode/qr-code/qr-code.component';
 
 
 import { QrcodeDialogComponent } from './dialog/qrcode-dialog/qrcode-dialog.component';
+import { LoginComponent } from './login/login/login.component';
 
 
 const routes: Routes =[
@@ -39,7 +40,7 @@ const routes: Routes =[
     AppComponent,
     QRGenComponent,
     QrCodeComponent,  
-    QrcodeDialogComponent,
+    QrcodeDialogComponent, LoginComponent,
    
   ],
  

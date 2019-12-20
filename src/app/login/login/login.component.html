@@ -1,0 +1,35 @@
+<div class="jumbotron">
+
+    <div class="text-header">
+        <mat-card class="text-mat-header" style="background-color: white;">
+          <mat-card-header>   
+          <mat-card-title><b>Login Form</b></mat-card-title>
+          </mat-card-header>
+        </mat-card>
+        
+      </div>
+    <form>
+  <div class="header">
+    <mat-card class="mat-header">
+     <div class="row example-container">
+        <mat-form-field appearance='outline' color='primary' style="margin-top: 10px;">
+            <mat-label><b>User Name</b></mat-label>
+            <input  matInput name='username' ngModel placeholder="Email-ID" required>
+          </mat-form-field>
+     </div>
+     <div class="row example-container">
+        <mat-form-field appearance='outline' color='primary'>
+            <mat-label><b>Password </b></mat-label>
+            <input  matInput [type]="hide ? 'password':'text'" name='password' ngModel  placeholder="Password" required>
+            <mat-icon matSuffix (click)="hide=!hide" style="cursor: pointer;">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>
+     </div>
+     <div class="row button-container">
+        <button mat-raised-button color="primary" type="submit" >Login</button>
+      </div>
+    </mat-card>
+    
+
+</div>
+</form>
+</div>
