@@ -17,26 +17,39 @@ export class LoginComponent implements OnInit {
 
   constructor(private fireAuth : AngularFireAuth , 
     private snack : SnackbarService,
-    private route:Router) { }
+    private route: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit(form:NgForm){
+    console.log(form)
 
     if(form.valid)
     {
+      console.log('ssds')
        this.fireAuth.auth.signInWithEmailAndPassword(form.value.username,form.value.password)
        .then((data)=>{
 
+        console.log('sds');
+        console.log(data);
+       
         this.route.navigate(['/home'])
 
        }).catch((error)=>{
+      
 
-        this.snack.snackbarSevice(error.message,'Login again');
+       this.snack.snackbarSevice(error.message,'Login again');
 
        })
     }
+
+  else{
+
+    this.snack.snackbarSevice('Fill the required details','Dismiss');
   }
+   
+  }
+ 
 
 }

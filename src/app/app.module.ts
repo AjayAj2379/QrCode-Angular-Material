@@ -33,7 +33,7 @@ import { LoginComponent } from './login/login/login.component';
 const routes: Routes =[
   {path:'', component:LoginComponent},
   {path:'home',component:QRGenComponent}
-]
+];
 
 @NgModule({
   declarations: [
