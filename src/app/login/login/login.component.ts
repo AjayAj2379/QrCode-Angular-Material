@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
        }).catch((error)=>{
 
-        this.snack.snackbarSevice(error.message,'Login again');
+        this.snack.snackbarSevice(error.message,'Login again',2000);
 
        })
     }

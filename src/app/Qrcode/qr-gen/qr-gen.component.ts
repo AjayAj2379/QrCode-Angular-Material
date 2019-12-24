@@ -18,6 +18,7 @@ export class QRGenComponent implements OnInit {
   
   submitted=false;
   loading=false;
+  id=[];
 
 constructor(private route:Router, 
   private snackservice: SnackbarService,
@@ -32,6 +33,10 @@ formValue:Formvalues
   ngOnInit() {
     this.resetForm();
     this.href='';
+    this.firestore.collection('details').doc('WC1').valueChanges().subscribe((data:any)=>{
+            this.id= data.id;   
+          console.log(this.id)
+          })
   
   }
 
@@ -113,6 +118,12 @@ formValue:Formvalues
 
       
       this.firestore.collection('values').doc(this.rcNumber).set(this.formValue).then((data)=>{
+
+       
+        this.id.push(this.rcNumber);
+
+            this.firestore.collection('details').doc('WC1').set({id:this.id}).then(()=>console.log("pushed"))
+
          this.loading=false;
 
         this.snackservice.snackbarSevice('Datas are saved','Press to go Back').onAction().subscribe(()=>{
