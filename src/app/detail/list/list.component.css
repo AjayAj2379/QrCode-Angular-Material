@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    
+  }
+
+  .table-mat{
+      margin: 30px;
+      margin-top: 10px;
+  }
+  td, th {
+    width: 20%;
+  }
+
+  th{
+      font-size: 16px;
+      font-style: oblique;
+      font-weight: bold;
+  }
+
+  td{
+      font-weight: bold ;
+  }
+
+  .example-container {
+    height: 70%;
+    overflow: auto;
+    margin: 30px;
+    margin-top: 10px;
+    width:95%;
+  }

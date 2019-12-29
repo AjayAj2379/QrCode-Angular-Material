@@ -32,4 +32,22 @@
 
 </div>
 </form>
+
+
+<div *ngIf="loading" class='progress-header'>
+  <mat-card class="progress-mat-header" >
+    <mat-card-content>
+     <b style="color: black;">Loading</b>
+  
+      <section >
+        <mat-progress-bar
+        
+            color="accent"
+            mode="indeterminate"
+           >
+        </mat-progress-bar>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>
 </div>

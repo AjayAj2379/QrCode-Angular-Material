@@ -8,9 +8,9 @@ export class DialogService {
 
   constructor(private dialog : MatDialog) { }
 
-  openDialog(componenet){
+  openDialog(componenet,text){
 
-   return this.dialog.open(componenet)
+   return this.dialog.open(componenet,{data:{name:text}})
    
 
   }

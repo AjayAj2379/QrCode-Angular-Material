@@ -15,8 +15,14 @@ export class Formvalues{
     HAB:boolean;
     imagehref:any;
     operation:any;
+    workcentre:any;
+    finish:boolean;
+}
 
 
-
-
+export class TableData{
+    LotNumber:any;
+    RcNumber:any;
+    MemberNo:any;
+    image:any;
 }

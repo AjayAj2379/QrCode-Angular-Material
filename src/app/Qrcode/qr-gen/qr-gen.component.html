@@ -1,7 +1,7 @@
 
 <div *ngIf="!submitted">
   
-<div class="jumbotron" style="margin:50px;background-color:lightcyan;">
+<div class="jumbotron" style="margin:50px;background-color:lightcyan;margin-top: 2%;">
 
   <div class="header">
     <mat-card class="mat-header">
@@ -85,7 +85,7 @@
 
   <div class="row" style="margin-left: 6%; padding-bottom: 3%;">
     <div class="mat-column">
-      <mat-checkbox color="warn"  checked=true onclick="return false;"><b>WC1<span style="color: red;">*</span></b></mat-checkbox>
+      <mat-checkbox color="warn"   checked=true onclick="return false;" onkeypress="return false;"><b>WC1<span style="color: red;">*</span></b></mat-checkbox>
     </div>
     <div class="mat-column">
       <mat-checkbox color='primary' name="bemco" ngModel ><b>BEMCO</b></mat-checkbox>
@@ -97,7 +97,7 @@
       <mat-checkbox color='primary' name="hab" ngModel ><b>HAB</b></mat-checkbox>
     </div>
     <div class="mat-column" >
-      <mat-checkbox  color="warn"  checked=true onclick="return false;" ><b>QC<span style="color: red;">*</span></b></mat-checkbox>
+      <mat-checkbox  color="warn"  checked=true onclick="return false;" onkeypress="return false;" ><b>QC<span style="color: red;">*</span></b></mat-checkbox>
     </div>
     
   

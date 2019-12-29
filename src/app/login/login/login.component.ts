@@ -14,6 +14,7 @@ import { error } from 'util';
 })
 export class LoginComponent implements OnInit {
   hide=true;
+  loading=false;
 
   constructor(private fireAuth : AngularFireAuth , 
     private snack : SnackbarService,
@@ -28,28 +29,31 @@ export class LoginComponent implements OnInit {
     if(form.valid)
     {
       console.log('ssds')
+      this.loading=true;
        this.fireAuth.auth.signInWithEmailAndPassword(form.value.username,form.value.password)
        .then((data)=>{
 
         console.log('sds');
         console.log(data);
+        this.loading=false;
        
-        this.route.navigate(['/home'])
+        this.route.navigate(['/main'])
 
        }).catch((error)=>{
       
-
-       this.snack.snackbarSevice(error.message,'Login again');
+        this.loading=false
+       this.snack.snackbarSevice(error.message,'Login again',2000);
 
        })
     }
 
   else{
 
-    this.snack.snackbarSevice('Fill the required details','Dismiss');
+    this.snack.snackbarSevice('Fill the required details','Dismiss',5000);
   }
    
   }
  
 
 }
+

@@ -7,6 +7,7 @@ import{AngularFirestore} from '@angular/fire/firestore'
 import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.component';
 import {Formvalues} from '../../formVaues.model'
 import { error } from 'util';
+import { firestore } from 'firebase';
 
 
 @Component({
@@ -41,7 +42,7 @@ formValue:Formvalues
     if(form.valid)
     {
 
-     let dialogRef = this.dialog.openDialog(QrcodeDialogComponent);
+     let dialogRef = this.dialog.openDialog(QrcodeDialogComponent,'submit');
 
      dialogRef.afterClosed().subscribe((result)=>{
        console.log(result);
@@ -62,7 +63,21 @@ formValue:Formvalues
           this.formValue.HYD =  (form.value.hyd === '' ? false : form.value.hyd)
           this.formValue.HAB =  (form.value.hab === '' ? false : form.value.hab)
           this.formValue.Qc = true;
-          
+          this.formValue.finish = false;
+          this.formValue.workcentre=''
+
+          if(this.formValue.BEMCO)
+          {
+            this.formValue.workcentre = this.formValue.workcentre.concat('BEMCO ')
+          }
+          if(this.formValue.HYD)
+          {
+            this.formValue.workcentre = this.formValue.workcentre.concat('HYD ')
+          }
+          if(this.formValue.HAB)
+          {
+            this.formValue.workcentre = this.formValue.workcentre.concat('HAB')
+          }
           this.submitted= true
           this.rcNumber = form.value.rcNumber;
         
@@ -95,7 +110,9 @@ formValue:Formvalues
           HAB:true,
           Qc:true ,
           imagehref:'' ,
-          operation:''
+          operation:'',
+          workcentre:'',
+          finish:false
         }
       }
   download(){
@@ -113,20 +130,24 @@ formValue:Formvalues
 
       
       this.firestore.collection('values').doc(this.rcNumber).set(this.formValue).then((data)=>{
-         this.loading=false;
 
-        this.snackservice.snackbarSevice('Datas are saved','Press to go Back').onAction().subscribe(()=>{
+          this.firestore.collection('details').doc('WC1').update({id: firestore.FieldValue.arrayUnion(this.rcNumber)}).then(()=>{
+            this.loading=false;
 
-          this.submitted = false;
-        console.log('sadsa')
-        })
+            this.snackservice.snackbarSevice('Datas are saved','Press to go Back').onAction().subscribe(()=>{
+    
+              this.submitted = false;
+            console.log('sadsa')
+            })
+          })
+        
       }).catch((err)=>{
         console.log(err)
       })
 
   
 
-    }
+     }
   
 
 }
