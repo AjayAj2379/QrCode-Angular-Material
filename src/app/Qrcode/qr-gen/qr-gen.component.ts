@@ -135,16 +135,6 @@ formValue:Formvalues
 
       
       this.firestore.collection('values').doc(this.rcNumber).set(this.formValue).then((data)=>{
-<<<<<<< HEAD
-=======
-
-       
-        this.id.push(this.rcNumber);
-
-            this.firestore.collection('details').doc('WC1').set({id:this.id}).then(()=>console.log("pushed"))
-
-         this.loading=false;
->>>>>>> d9faa02c18a0f0692faa8872b9ebf95aacfad326
 
           this.firestore.collection('details').doc('WC1').update({id: firestore.FieldValue.arrayUnion(this.rcNumber)}).then(()=>{
             this.loading=false;

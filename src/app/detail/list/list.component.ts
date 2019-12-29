@@ -5,6 +5,7 @@ import {TableData} from '../../formVaues.model'
 import { MatPaginator } from '@angular/material';
 import {DialogService} from '../../service/dialog.service';
 import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.component';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-list',
@@ -67,7 +68,10 @@ export class ListComponent implements OnInit {
 
       if(result)
       {
-        this.firestore.collection('values').doc(id).delete();
+        this.firestore.collection('values').doc(id).delete().then(()=>{
+          this.firestore.collection('details').doc('WC1').update({id: firestore.FieldValue.arrayRemove(id)})
+        })
+       
       }
     })
   
