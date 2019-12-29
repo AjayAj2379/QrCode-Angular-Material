@@ -40,9 +40,14 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['/main'])
 
        }).catch((error)=>{
+<<<<<<< HEAD
       
         this.loading=false
        this.snack.snackbarSevice(error.message,'Login again',2000);
+=======
+
+        this.snack.snackbarSevice(error.message,'Login again',2000);
+>>>>>>> d9faa02c18a0f0692faa8872b9ebf95aacfad326
 
        })
     }
