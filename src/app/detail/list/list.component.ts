@@ -63,7 +63,9 @@ export class ListComponent implements OnInit {
   }
   
   delete(id){
+    let item;
     console.log(id);
+ 
 
     let dialogRef = this.dialog.openDialog(QrcodeDialogComponent,'delete')
     dialogRef.afterClosed().subscribe((result)=>{
@@ -71,7 +73,14 @@ export class ListComponent implements OnInit {
       if(result)
       {
         this.firestore.collection('values').doc(id).delete().then(()=>{
-          this.firestore.collection('details').doc('WC1').update({id: firestore.FieldValue.arrayRemove(id)})
+          this.firestore.collection('details',ref=>ref.where('id','array-contains',id)).get().subscribe((data)=>{
+            data.docs.forEach(info=>{
+               item = info.id
+            })
+            console.log(item)
+            this.firestore.collection('details').doc(item).update({id: firestore.FieldValue.arrayRemove(id)})
+          })
+          
         })
        
       }
