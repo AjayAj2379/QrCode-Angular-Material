@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Router} from '@angular/router';
 import {SnackbarService} from '../../service/snackbar.service'
@@ -15,7 +15,7 @@ import { firestore } from 'firebase';
   templateUrl: './qr-gen.component.html',
   styleUrls: ['./qr-gen.component.css']
 })
-export class QRGenComponent implements OnInit {
+export class QRGenComponent implements OnInit, OnDestroy {
   
   submitted=false;
   loading=false;
@@ -28,18 +28,25 @@ constructor(private route:Router,
 
 
 rcNumber=''
+
 href : string;
 formValue:Formvalues
   
   ngOnInit() {
+  
     this.resetForm();
     this.href='';
-    this.firestore.collection('details').doc('WC1').valueChanges().subscribe((data:any)=>{
-            this.id= data.id;   
-          console.log(this.id)
-          })
+    
   
   }
+  
+  ngOnDestroy(){
+    console.log('destroy')
+    this.snackservice.closeSnack();
+  }
+
+
+
 
   onSubmit(form:NgForm)
   {

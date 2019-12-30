@@ -14,6 +14,7 @@ export class SnackbarService {
   snackbarSevice(message,action,duration?)
   {
     
+    
     let config = new MatSnackBarConfig();
 
     config.verticalPosition = this.verticalPosition;
@@ -23,5 +24,10 @@ export class SnackbarService {
       return this.snackbar.open(message,action,{duration:duration})
     }
     return this.snackbar.open(message,action)
+  }
+
+  closeSnack(){
+
+    this.snackbar.dismiss();
   }
 }

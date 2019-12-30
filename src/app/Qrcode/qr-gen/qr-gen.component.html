@@ -85,7 +85,8 @@
 
   <div class="row" style="margin-left: 6%; padding-bottom: 3%;">
     <div class="mat-column">
-      <mat-checkbox color="warn"   checked=true onclick="return false;" onkeypress="return false;"><b>WC1<span style="color: red;">*</span></b></mat-checkbox>
+      <mat-checkbox color="warn"   checked=true onclick="return false;" onKeyDown="if(event.keyCode === 32)
+      return false;"><b>WC1<span style="color: red;">*</span></b></mat-checkbox>
     </div>
     <div class="mat-column">
       <mat-checkbox color='primary' name="bemco" ngModel ><b>BEMCO</b></mat-checkbox>
@@ -97,7 +98,8 @@
       <mat-checkbox color='primary' name="hab" ngModel ><b>HAB</b></mat-checkbox>
     </div>
     <div class="mat-column" >
-      <mat-checkbox  color="warn"  checked=true onclick="return false;" onkeypress="return false;" ><b>QC<span style="color: red;">*</span></b></mat-checkbox>
+      <mat-checkbox  color="warn"  checked=true onclick="return false;" onKeyDown="if(event.keyCode === 32)
+      return false;"><b>QC<span style="color: red;">*</span></b></mat-checkbox>
     </div>
     
   
@@ -135,9 +137,9 @@
         <mat-card class="mat-header-code">
             <ngx-qrcode
              id="qrCodeImage" 
-            [qrc-element-type]="elementType"
+            
              [qrc-value] = "rcNumber"
-             [qrc-errorCorrectionLevel]="size"
+             
             
             >
             </ngx-qrcode>

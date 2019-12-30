@@ -4,7 +4,8 @@ import { NgForm } from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {Router} from '@angular/router'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import {SnackbarService} from '../../service/snackbar.service'
+import {SnackbarService} from '../../service/snackbar.service';
+import {AuthServiceService} from '../../service/auth-service.service'
 import { error } from 'util';
 
 @Component({
@@ -18,9 +19,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private fireAuth : AngularFireAuth , 
     private snack : SnackbarService,
+    private authService : AuthServiceService,
     private route: Router) { }
 
   ngOnInit() {
+    console.log('sadsa')
+    this.authService.initLogout();
   }
 
   onSubmit(form:NgForm){
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
     {
       console.log('ssds')
       this.loading=true;
+      
        this.fireAuth.auth.signInWithEmailAndPassword(form.value.username,form.value.password)
        .then((data)=>{
 

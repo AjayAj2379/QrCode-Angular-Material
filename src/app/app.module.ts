@@ -34,16 +34,20 @@ import { LoginComponent } from './login/login/login.component';
 import { ToolbarComponent } from './nav/toolbar/toolbar.component';
 import { ListComponent } from './detail/list/list.component';
 import { WrapperComponent } from './wrapper/wrapper/wrapper.component';
+import {AuthGuardService} from './service/auth-guard.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 
 
 const routes: Routes =[
   {path:'', component:LoginComponent},
-  {path:'main', component:WrapperComponent,children:[
+  {path:'main', component:WrapperComponent,canActivate:[AuthGuardService] ,children:[
    
     {path:'home',component:QRGenComponent},
     {path:'',component:QRGenComponent},
     {path:'list',component:ListComponent}
-  ]}
+  ]},
+
+  {path:'**',component:PageNotFoundComponent}
  
 ];
 
@@ -52,7 +56,7 @@ const routes: Routes =[
     AppComponent,
     QRGenComponent,
     QrCodeComponent,  
-    QrcodeDialogComponent, LoginComponent, ToolbarComponent, ListComponent, WrapperComponent,
+    QrcodeDialogComponent, LoginComponent, ToolbarComponent, ListComponent, WrapperComponent, PageNotFoundComponent,
    
   ],
  

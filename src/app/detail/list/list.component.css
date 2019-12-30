@@ -8,7 +8,7 @@ table {
       margin-top: 10px;
   }
   td, th {
-    width: 20%;
+    width: 10%;
   }
 
   th{
@@ -28,3 +28,32 @@ table {
     margin-top: 10px;
     width:95%;
   }
+
+  @media  (max-width: 600px) {
+
+    /* .mat-header-row {
+      display: none;
+    }
+  
+    .mat-row { 
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      padding: 10px;
+      height:100%;
+      font-size: 14px;
+    }
+    .mat-cell{
+      width:80%;
+      padding:5px
+    }
+    
+    .table-mat{
+      margin: 30px;
+      margin-top: 10px;
+  }
+   table{
+     width:'100%';
+    
+   } */
+}

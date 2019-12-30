@@ -5,6 +5,7 @@ import {TableData} from '../../formVaues.model'
 import { MatPaginator } from '@angular/material';
 import {DialogService} from '../../service/dialog.service';
 import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.component';
+import {AuthServiceService} from '../../service/auth-service.service'
 import { firestore } from 'firebase';
 
 @Component({
@@ -23,7 +24,8 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(private firestore: AngularFirestore,
-    private dialog : DialogService
+    private dialog : DialogService,
+    private authService : AuthServiceService
     ) { }
 
   ngOnInit() {
@@ -76,6 +78,7 @@ export class ListComponent implements OnInit {
     })
   
   }
-  
+
+ 
 }
 
