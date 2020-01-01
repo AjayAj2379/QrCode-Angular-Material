@@ -42,7 +42,8 @@
        <ng-container matColumnDef="imageLink">
         <th mat-header-cell *matHeaderCellDef> QR-Code </th>
         <td mat-cell *matCellDef="let element"> 
-        <a mat-raised-button href="{{element.image}}" download="{{element.RcNumber}}">Download</a>    
+      <!-- //  <a mat-raised-button href="{{element.image}}" download="{{element.RcNumber}}">Download</a>     -->
+        <button  mat-raised-button color='primary' (click)="download(element.image,element.RcNumber,element.MemberNo)" >Download</button>
         </td>
       </ng-container>
 

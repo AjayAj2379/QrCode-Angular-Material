@@ -7,7 +7,9 @@ import{AngularFirestore} from '@angular/fire/firestore'
 import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.component';
 import {Formvalues} from '../../formVaues.model'
 import { error } from 'util';
+import {PdfService} from '../../service/pdf.service'
 import { firestore } from 'firebase';
+import { from } from 'rxjs';
 
 
 @Component({
@@ -24,11 +26,12 @@ export class QRGenComponent implements OnInit, OnDestroy {
 constructor(private route:Router, 
   private snackservice: SnackbarService,
   private dialog:DialogService,
+  private pdf: PdfService,
   private firestore:AngularFirestore ) { }
 
 
 rcNumber=''
-
+memberNo=''
 href : string;
 formValue:Formvalues
   
@@ -92,6 +95,7 @@ formValue:Formvalues
           }
           this.submitted= true
           this.rcNumber = form.value.rcNumber;
+          this.memberNo = form.value.memberNo;
         
        }
 
@@ -128,8 +132,10 @@ formValue:Formvalues
         }
       }
   download(){
-  console.log(document.getElementsByTagName('img')[0].src)
-    this.href =  document.getElementsByTagName('img')[0].src
+     console.log(document.getElementsByTagName('img')[0].src)
+      this.href =  document.getElementsByTagName('img')[0].src
+
+      this.pdf.download(this.href,this.rcNumber,this.memberNo)
   
     }
 

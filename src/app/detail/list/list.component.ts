@@ -5,7 +5,8 @@ import {TableData} from '../../formVaues.model'
 import { MatPaginator } from '@angular/material';
 import {DialogService} from '../../service/dialog.service';
 import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.component';
-import {AuthServiceService} from '../../service/auth-service.service'
+import {AuthServiceService} from '../../service/auth-service.service';
+import {PdfService} from '../../service/pdf.service'
 import { firestore } from 'firebase';
 
 @Component({
@@ -25,7 +26,8 @@ export class ListComponent implements OnInit {
 
   constructor(private firestore: AngularFirestore,
     private dialog : DialogService,
-    private authService : AuthServiceService
+    private authService : AuthServiceService,
+    private pdf : PdfService
     ) { }
 
   ngOnInit() {
@@ -56,6 +58,10 @@ export class ListComponent implements OnInit {
       
     })
 
+  }
+  download(base64,rc,mem)
+  {
+    this.pdf.download(base64,rc,mem)
   }
 
   applyFilter(filterValue: string) {
