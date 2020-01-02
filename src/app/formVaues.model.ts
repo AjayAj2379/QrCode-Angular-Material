@@ -26,3 +26,4 @@ export class TableData{
     MemberNo:any;
     image:any;
 }
+

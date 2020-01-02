@@ -1,0 +1,61 @@
+
+<div class="jumbotron">
+    
+    <div>
+
+        <input type="file" accept=".xls,.xlsx" id="file" class="hide_file" #ref (change)='onSubmit($event)' style="display: none">
+       
+         </div>
+         <div class="row">
+            <div  style="display: flex; flex-direction: row; justify-content: center;">
+                <div class="example-container" style="width:50%; margin-right: 5%;">
+    
+                    <mat-form-field appearance='outline' color='accent'>
+                        <mat-label><b>Filename</b></mat-label>
+                        <input  matInput name="file" style="font-weight:bold; font-family: cursive; color: coral;" [(ngModel)]='fileName' placeholder="File" readonly>
+                        <span  style="font-weight:bold; font-family: cursive; color: coral;"  matSuffix>{{filesize}}</span>
+                      </mat-form-field>
+                   
+                 </div>
+        
+               
+    
+             </div>
+             <div class="row">
+ 
+                <div class="row button-container" >
+                    
+                    <button mat-raised-button style="padding: 0;" color="primary" type="button" onclick="document.getElementById('file').click()" >Browse</button>
+                </div>
+             </div>
+
+             <div class="row">
+                <div  style="display: flex; flex-direction: row; justify-content: center;">
+                    
+                </div>
+
+             </div>
+
+         </div>
+         
+        
+         
+       
+       
+         <br>
+         <div style="display: none;">
+            <ngx-qrcode
+            id="qrCodeImage" 
+           
+            [qrc-value] = "rcNumber"
+            
+           
+           >
+           </ngx-qrcode>
+    
+         </div>
+
+</div>
+
+
+    

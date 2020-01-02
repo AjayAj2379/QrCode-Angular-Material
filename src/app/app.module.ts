@@ -35,7 +35,8 @@ import { ToolbarComponent } from './nav/toolbar/toolbar.component';
 import { ListComponent } from './detail/list/list.component';
 import { WrapperComponent } from './wrapper/wrapper/wrapper.component';
 import {AuthGuardService} from './service/auth-guard.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ExcelComponent } from './excel/excel/excel.component'
 
 
 const routes: Routes =[
@@ -56,7 +57,7 @@ const routes: Routes =[
     AppComponent,
     QRGenComponent,
     QrCodeComponent,  
-    QrcodeDialogComponent, LoginComponent, ToolbarComponent, ListComponent, WrapperComponent, PageNotFoundComponent,
+    QrcodeDialogComponent, LoginComponent, ToolbarComponent, ListComponent, WrapperComponent, PageNotFoundComponent, ExcelComponent,
    
   ],
  
