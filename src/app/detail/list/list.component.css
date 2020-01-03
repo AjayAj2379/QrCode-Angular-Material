@@ -22,7 +22,7 @@ table {
   }
 
   .example-container {
-    height: 70%;
+    height: 450px;
     overflow: auto;
     margin: 30px;
     margin-top: 10px;

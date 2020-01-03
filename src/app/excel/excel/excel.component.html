@@ -21,6 +21,7 @@
                
     
              </div>
+            </div>
              <div class="row">
  
                 <div class="row button-container" >
@@ -28,15 +29,75 @@
                     <button mat-raised-button style="padding: 0;" color="primary" type="button" onclick="document.getElementById('file').click()" >Browse</button>
                 </div>
              </div>
+             <br>
 
              <div class="row">
                 <div  style="display: flex; flex-direction: row; justify-content: center;">
+                <div class="example-container" style="width:20%; margin-right: 5%;">
+                <mat-form-field appearance='outline' color='accent'>
+                    <mat-label>Sheet Name</mat-label>
+                    <mat-select [(ngModel)]="sheetName" name="sheetName"  required [disabled]='select'>
+                      <mat-option *ngFor="let sheet of sheetArray"  [value]="sheet.index" >
+                        {{sheet.name}}
+                      </mat-option>
+                    </mat-select>
+                   
+                    <mat-error>Field is required</mat-error>
+                  </mat-form-field>
+                    </div>
                     
+                <div>
+                    
+                  <button mat-raised-button style="padding: 0; margin-top: 10px;" color="accent" type="button" [disabled]='select' (click)='chooseSheet()' >Select</button>
+              </div>
+                    </div>
                 </div>
 
-             </div>
+                <div *ngIf="loading" class='progress-header'>
+                  <mat-card class="progress-mat-header" >
+                    <mat-card-content>
+                     <b style="color: black; margin-bottom: 10px;">Please wait while the datas are loaded</b>
+                     
+                  
+                      <section >
+                        <mat-progress-bar
+                        
+                            color="accent"
+                            mode="indeterminate"
+                           >
+                        </mat-progress-bar>
+                      </section>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
 
-         </div>
+                <div *ngIf='loadedData'>
+
+                  <div class="header" >
+                    <mat-card class="mat-header" style="display: flex; flex-direction: column;">
+                      <mat-card-header style="justify-content: center;">
+                     
+                      <mat-card-title><b>RESULTS</b></mat-card-title>
+                    
+                      </mat-card-header>
+                     <mat-card-content style="display:flex; justify-content: center; align-items: center;">
+                       <span style="font-size:16px; font-weight: bold; font-family:initial;">Data Loaded: {{another.length}}</span>
+                     </mat-card-content>
+                     <mat-card-actions>
+                       <div style="display: flex; justify-content: center;">
+                        <button mat-raised-button color="accent" type="button" (click)='saveData()' >Save</button>
+                       </div>
+                     
+                     
+                    </mat-card-actions>
+                    </mat-card>
+                    
+                  </div>
+
+                </div>
+
+
+      
          
         
          
@@ -54,6 +115,8 @@
            </ngx-qrcode>
     
          </div>
+
+       
 
 </div>
 
