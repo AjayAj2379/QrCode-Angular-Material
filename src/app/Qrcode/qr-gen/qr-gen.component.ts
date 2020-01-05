@@ -128,7 +128,8 @@ formValue:Formvalues
           imagehref:'' ,
           operation:'',
           workcentre:'',
-          finish:false
+          finish:false,
+          time:''
         }
       }
   download(){
@@ -143,6 +144,7 @@ formValue:Formvalues
       this.loading = true;
       this.href =  document.getElementsByTagName('img')[0].src
       this.formValue.imagehref = this.href
+      this.formValue.time = firestore.Timestamp.now();
    
      console.log(this.formValue)
 

@@ -8,6 +8,7 @@ import {QrcodeDialogComponent} from '../../dialog/qrcode-dialog/qrcode-dialog.co
 import {AuthServiceService} from '../../service/auth-service.service';
 import {PdfService} from '../../service/pdf.service'
 import { firestore } from 'firebase';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-list',
@@ -16,7 +17,7 @@ import { firestore } from 'firebase';
 })
 export class ListComponent implements OnInit {
 
- displayedColumns: string[] = ['position', 'RcNumber', 'member', 'lot', 'imageLink','delete'];
+ displayedColumns: string[] = ['position', 'RcNumber', 'member', 'FinishedAt', 'lot', 'imageLink','delete'];
   tableValues:TableData[]=[];
   dataSource = new MatTableDataSource<TableData>(this.tableValues);
   loading=false;
@@ -27,28 +28,45 @@ export class ListComponent implements OnInit {
   constructor(private firestore: AngularFirestore,
     private dialog : DialogService,
     private authService : AuthServiceService,
-    private pdf : PdfService
+    private pdf : PdfService,
+    private datepipe:DatePipe
     ) { }
 
   ngOnInit() {
     console.log('ngonit')
+    var finish;
 
     this.dataSource.paginator = this.paginator
     this.loading=true
    
     this.dataSource = new MatTableDataSource<TableData>(this.tableValues)
-    this.firestore.collection('values').snapshotChanges().subscribe((data):any=>{
+    this.firestore.collection('values', ref=>ref.orderBy('time','asc')).snapshotChanges().subscribe((data):any=>{
       this.tableValues=[];
      data.map((info:any)=>{
 
-          
+      console.log(info.payload.doc.data().time.toDate())   
+      if(info.payload.doc.data().Qc === info.payload.doc.data().finish )
+      {
+        finish = info.payload.doc.data().time.toDate()
+       finish= this.datepipe.transform(finish,'MMMM d, y')
+       finish = finish.toString();
+        console.log(finish)
+        
+      } 
+      else{
+        finish='-';
+        console.log(finish)
+      }
       
       this.tableValues.push({
         RcNumber:info.payload.doc.data().RcNumber,
         MemberNo:info.payload.doc.data().MemberNo,
         LotNumber:info.payload.doc.data().LotNumber,
-        image: info.payload.doc.data().imagehref
+        image: info.payload.doc.data().imagehref,
+        time: finish
       })
+
+    
         })
       
         this.dataSource = new MatTableDataSource<TableData>(this.tableValues)
@@ -65,7 +83,10 @@ export class ListComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
+    console.log(filterValue)
+    
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource.filter)
   }
   
   delete(id){

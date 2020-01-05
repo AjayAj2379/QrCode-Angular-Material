@@ -15,7 +15,7 @@ export class PdfService {
     var doc = new jsPDF();
    
     doc.setFontSize(16)
-    doc.text(['Rc Number : '+rc,'Member No : '+mem],105,25,{align:'center'})
+    doc.text([rc,mem],110,32,{align:'center'})
     doc.addImage(imageData,'PNG',85,40,50,50)
     //doc.output('dataurlnewwindow');
 

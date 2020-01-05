@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx'
 import {AngularFirestore} from '@angular/fire/firestore'
 import { firestore } from 'firebase';
+import {SnackbarService} from '../../service/snackbar.service'
+import {PdfService} from '../../service/pdf.service'
 
 @Component({
   selector: 'app-excel',
@@ -12,17 +14,24 @@ export class ExcelComponent implements OnInit {
 
 
   constructor(
-private firestore : AngularFirestore
+private firestore : AngularFirestore,
+private snackbar : SnackbarService,
+private pdf : PdfService
 
   ) { }
 
   headingArray: string[] = ['LotNumber','RcNumber','MemberNo','Section','Length','Qty','Weight','W_C','operation','WC1','BEMCO','HYD','HAB','Qc']
+  checkHeading: string[] =  ['LotNumber','RcNo','MemberNo','Section','Length','Qty','Weight','W/C','opr','WC1','BEMCO','HYD','HAB','Qc']
   formValues:any
   rcNumber=''
   href=''
+  exceed= false;
+  headError='';
+  heading= false;
   select=true;
   loading= false;
   loadedData = false;
+  loadingapi = false;
   workcentre=''
   filesize=''
   sheetName=0;
@@ -35,35 +44,94 @@ private firestore : AngularFirestore
   ngOnInit() {
   }
 
+
   chooseSheet(){
     console.log(this.sheetName)
     const sheet=this.workbook.Sheets[this.workbook.SheetNames[this.sheetName]]
-
+    var value;
     console.log(sheet)
     var range= XLSX.utils.decode_range(sheet['!ref'])
     console.log(range)
-    this.traverseColumn(range,sheet)
-    
-    
+
+    for(var C=0 ; C<14;C++)
+    {
+      this.heading = false;
+        var cell_address = {c:C , r:0}
+        var cell_ref = XLSX.utils.encode_cell(cell_address);
+        console.log(cell_ref)
+        if(!sheet[cell_ref])
+        {
+            this.heading = true;
+            this.loadedData = false;
+            this.headError='The top row is empty i.e (A1 - N1)'
+            console.log(this.headError)
+            break;
+        }
+        value =  sheet[cell_ref].v
+        value=value.toLowerCase().replace(/\s/g,'')
+        if(this.checkHeading[C].toLowerCase() === value)
+        {
+          console.log(value)
+        }
+        else{
+          this.heading = true;
+          this.loadedData= false;
+          this.headError = 'Column mismatch '+ sheet[cell_ref].v
+          console.log(this.headError)
+          break;
+        }
+      // console.log(value.toLowerCase)
+
+    }
+    console.log(this.heading)
+
+    if(!this.heading)
+    {
+      this.traverseColumn(range,sheet)
+    }
+
+    else{
+      this.snackbar.snackbarSevice(this.headError,'Dismiss',5000)
+    }
+
+  //
+       
   }
 
- saveData(){
+ async saveData(){
 
-  this.loading = true;
+  this.loadingapi = true;
+  console.log(this.loading)
 
-  this.another.forEach(async (item,index)=>{
+await this.another.forEach((item,index)=>{
 
-console.log(item,index)   
+console.log(item,index) 
+
+  
 console.log(item.RcNumber) 
- await this.firestore.collection('values').doc(item.RcNumber).set(item).then(()=>{
+  this.firestore.collection('values').doc(item.RcNumber).set(item).then(()=>{
         console.log('succ')
         this.firestore.collection('details').doc('WC1').update({id: firestore.FieldValue.arrayUnion(item.RcNumber)}).then(()=>{
           console.log('entered')
+          this.pdf.download(item.imagehref,item.RcNumber,item.MemberNo)
+           
+          if(index == this.another.length-1)
+          {
+            this.loadingapi = false;
+            this.loadedData = false;
+            this.snackbar.snackbarSevice('Data are saved','OK',5000)
+          }
         })
       })
+
+     
   })
-this.loading=false;
+  
+//this.loading=false;
+console.log(this.loading)
   }
+
+
 
   async traverseColumn (range,sheet){
     this.loading= true;
@@ -73,13 +141,10 @@ this.loading=false;
     
       for(var R = range.s.r+1; R <= range.e.r; ++R) {
         var skip = false;
-        for(var C = range.s.c; C <= range.e.c; ++C) {
+        for(var C = range.s.c; C <= 13; ++C) {
         var value;
         this.workcentre=''
-      
-        
-    
-         
+           
           var cell_address = {c:C, r:R};
         
        //  console.log(this.headingArray[C])
@@ -95,7 +160,16 @@ this.loading=false;
 
           if(!sheet[cell_ref] && C>=9)
           {
-            value=false;
+            console.log(C)
+            if(C==13 || C==9)
+            {
+              console.log(C)
+              value=true
+            }
+            else{
+              value=false;
+            }
+           
           //  console.log(cell_ref +'-->'+ 'false')
           }
           else if(C>=9 && sheet[cell_ref]){
@@ -131,6 +205,7 @@ this.loading=false;
             //console.log(this.workcentre)
           }
           var flag = {};
+          var time={};
           flag['workcentre'] = this.workcentre;
           temp['finish']=false;
           
@@ -142,7 +217,8 @@ this.loading=false;
           this.href=document.getElementsByTagName('img')[0].src;
           console.log('href')
           flag['imagehref']= this.href
-          this.formValues = {...this.formValues,...flag}
+          time['time'] = firestore.Timestamp.now().toDate();
+          this.formValues = {...this.formValues,...flag,...time}
           //this.imgarray.push(this.href)
           console.log(this.formValues)
           this.another.push(this.formValues)
@@ -156,6 +232,15 @@ this.loading=false;
       
       this.loading=false;
       this.loadedData=true;
+
+      if(this.another.length>175)
+      {
+        this.exceed = true;
+        this.snackbar.snackbarSevice('Loaded Data should be less than 175','OK',5000)
+      }
+      else{
+        this.exceed=false;
+      }
       
      
       
@@ -234,6 +319,7 @@ const extension = file.name.split('.')[1]
  }
 
  else{
+   this.snackbar.snackbarSevice('Choose only .xls or .xlsx files','OK',5000)
 
  }
 

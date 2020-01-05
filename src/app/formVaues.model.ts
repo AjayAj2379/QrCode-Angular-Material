@@ -17,6 +17,7 @@ export class Formvalues{
     operation:any;
     workcentre:any;
     finish:boolean;
+    time:any;
 }
 
 
@@ -25,5 +26,6 @@ export class TableData{
     RcNumber:any;
     MemberNo:any;
     image:any;
+    time:any
 }
 

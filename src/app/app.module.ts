@@ -38,6 +38,8 @@ import { WrapperComponent } from './wrapper/wrapper/wrapper.component';
 import {AuthGuardService} from './service/auth-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ExcelComponent } from './excel/excel/excel.component'
+import { DatePipe } from '@angular/common';
+
 
 
 const routes: Routes =[
@@ -46,7 +48,8 @@ const routes: Routes =[
    
     {path:'home',component:QRGenComponent},
     {path:'',component:QRGenComponent},
-    {path:'list',component:ListComponent}
+    {path:'list',component:ListComponent},
+    {path:'excel',component:ExcelComponent}
   ]},
 
   {path:'**',component:PageNotFoundComponent}
@@ -58,6 +61,7 @@ const routes: Routes =[
     AppComponent,
     QRGenComponent,
     QrCodeComponent,  
+    
     QrcodeDialogComponent, LoginComponent, ToolbarComponent, ListComponent, WrapperComponent, PageNotFoundComponent, ExcelComponent,
    
   ],
@@ -93,7 +97,7 @@ const routes: Routes =[
     NgxQRCodeModule
  
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
